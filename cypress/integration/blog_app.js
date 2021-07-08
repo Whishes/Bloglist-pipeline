@@ -26,21 +26,14 @@ describe("Blog app", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("salainen")
       cy.get("#loginButton").click()
-      cy.wait(400) // eslint-disable-line
 
-      cy.get(".successful").contains("Matti Luukkainen logged in")
+      cy.get("html").should("contain", "Matti Luukkainen logged in")
     })
 
     it("fails with wrong credentials", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("wrong")
       cy.get("#loginButton").click()
-      cy.wait(400) // eslint-disable-line
-
-      cy.get(".unsuccessful")
-        .should("contain", "invalid username or password")
-        .and("have.css", "color", "rgb(255, 0, 0)")
-        .and("have.css", "border-style", "solid")
 
       cy.get("html").should("not.contain", "Matti Luukkainen logged in")
     })
