@@ -30,7 +30,7 @@ jobs:
       - name: npm install frontend
         run: cd client && npm install
       - name: lint
-        run: npm run eslint
+        run: npm run line
       - name: build
         run: npm run build
       - name: test
