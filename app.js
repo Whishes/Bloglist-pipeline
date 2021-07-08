@@ -10,6 +10,7 @@ const middleware = require("./utils/middleware");
 const logger = require("./utils/logger");
 const config = require("./utils/config");
 const mongoose = require("mongoose");
+const path = require("path");
 
 logger.info("connecting to", config.MONGODB_URI);
 
@@ -28,7 +29,7 @@ mongoose
   });
 
 app.use(cors());
-app.use(express.static("build"));
+app.use(express.static(path.join(__dirname, "./client/build")));
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);
