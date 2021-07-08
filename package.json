@@ -11,9 +11,10 @@
     "lint": "eslint .",
     "start:test": "cross-env NODE_ENV=tests node index.js",
     "test:e2e": "cypress run",
+    "start:prod": "cross-env NODE_ENV=production npm start",
     "start:frontend": "cd client && npm start",
     "build:frontend": "cd client && npm run build",
-    "heroku:frontbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "",
   "license": "MIT",
@@ -37,7 +38,6 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.6.0",
-    "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
