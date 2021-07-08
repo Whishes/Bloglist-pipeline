@@ -6,15 +6,15 @@ describe("Blog app", function () {
   }
 
   beforeEach(function () {
-    cy.request("POST", "http://localhost:3003/api/testing/reset")
+    cy.request("POST", "http://localhost:5000/api/testing/reset")
     const user = {
       name: "Matti Luukkainen",
       username: "mluukkai",
       password: "salainen",
     }
 
-    cy.request("POST", "http://localhost:3003/api/users/", user)
-    cy.visit("http://localhost:3003")
+    cy.request("POST", "http://localhost:5000/api/users/", user)
+    cy.visit("http://localhost:5000")
   })
 
   it("Login form is shown", function () {
@@ -58,7 +58,7 @@ describe("Blog app", function () {
 
       cy.wait(1000) // eslint-disable-line
 
-      cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
+      cy.request("GET", "http://localhost:5000/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body[0]).to.have.property("title", "Test Blog")
         expect(response.body[0]).to.have.property("author", "Test Author")
@@ -94,7 +94,7 @@ describe("Blog app", function () {
 
       cy.wait(1000) // eslint-disable-line
 
-      cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
+      cy.request("GET", "http://localhost:5000/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body).to.have.length(0)
       })
