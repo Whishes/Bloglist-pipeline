@@ -27,10 +27,6 @@ describe("Blog app", function () {
       cy.get("#password").type("salainen")
       cy.get("#loginButton").click()
 
-      cy.on("uncaught:exception", (err, runnable) => {
-        return false
-      })
-
       cy.contains("Matti Luukkainen logged in")
     })
 
@@ -38,10 +34,6 @@ describe("Blog app", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("wrong")
       cy.get("#loginButton").click()
-
-      cy.on("uncaught:exception", (err, runnable) => {
-        return false
-      })
 
       cy.get(".unsuccessful")
         .should("contain", "invalid username or password")
