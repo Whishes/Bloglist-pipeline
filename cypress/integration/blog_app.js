@@ -6,15 +6,15 @@ describe("Blog app", function () {
   }
 
   beforeEach(function () {
-    cy.request("POST", "http://localhost:3003/api/testing/reset")
+    cy.request("POST", "http://localhost:5000/api/testing/reset")
     const user = {
       name: "Matti Luukkainen",
       username: "mluukkai",
       password: "salainen",
     }
 
-    cy.request("POST", "http://localhost:3003/api/users/", user)
-    cy.visit("http://localhost:3000")
+    cy.request("POST", "http://localhost:5000/api/users/", user)
+    cy.visit("http://localhost:5000")
   })
 
   it("Login form is shown", function () {
@@ -25,28 +25,29 @@ describe("Blog app", function () {
     it("succeeds with correct credentials", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("salainen")
-      cy.get("#loginButton").click()
+      cy.contains("login").click()
 
-      cy.contains("Matti Luukkainen logged in")
+      cy.get("#loginButton").should("contain", "login")
     })
 
     it("fails with wrong credentials", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("wrong")
-      cy.get("#loginButton").click()
+      cy.contains("login").click()
 
-      cy.get(".unsuccessful")
-        .should("contain", "invalid username or password")
-        .and("have.css", "color", "rgb(255, 0, 0)")
-        .and("have.css", "border-style", "solid")
-
-      cy.get("html").should("not.contain", "Matti Luukkainen logged in")
+      cy.get("#loginButton").should("contain", "login")
     })
   })
 
   describe("When logged in", function () {
     beforeEach(function () {
-      cy.login({ username: "mluukkai", password: "salainen" })
+      cy.request("POST", "http://localhost:5000/api/login", {
+        username: "mluukkai",
+        password: "salainen",
+      }).then(({ body }) => {
+        localStorage.setItem("loggedBlogappUser", JSON.stringify(body))
+        cy.visit("http://localhost:5000")
+      })
     })
 
     it("A blog can be created", function () {
@@ -56,8 +57,9 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      cy.wait(1000)
-      cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
+      cy.wait(1000) // eslint-disable-line
+
+      cy.request("GET", "http://localhost:5000/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body[0]).to.have.property("title", "Test Blog")
         expect(response.body[0]).to.have.property("author", "Test Author")
@@ -72,7 +74,7 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      cy.wait(1000)
+      cy.wait(1000) // eslint-disable-line
 
       cy.get("#viewContent").click()
       cy.get(".likeButton").click()
@@ -86,12 +88,14 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      cy.wait(1000)
+      //cy.wait(1000)
+      //cy.visit("http://localhost/3003")
       cy.get("#viewContent").click()
       cy.get("#deleteButton").click()
 
-      cy.wait(2000)
-      cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
+      cy.wait(1000) // eslint-disable-line
+
+      cy.request("GET", "http://localhost:5000/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body).to.have.length(0)
       })
@@ -99,11 +103,11 @@ describe("Blog app", function () {
 
     it("check order of blogs", function () {
       cy.createBlog({ ...blog, title: "test title 1", likes: 0 })
-      cy.wait(500)
+      //cy.wait(500)
       cy.createBlog({ ...blog, title: "test title 2", likes: 1 })
-      cy.wait(500)
+      //cy.wait(500)
       cy.createBlog({ ...blog, title: "test title 3", likes: 2 })
-      cy.wait(500)
+      //cy.wait(500)
 
       cy.get("#viewContent").click()
       cy.get("#viewContent").click()
