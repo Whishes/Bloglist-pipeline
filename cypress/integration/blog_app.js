@@ -56,7 +56,7 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      cy.wait(1000)
+      //cy.wait(1000)
       cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body[0]).to.have.property("title", "Test Blog")
@@ -72,7 +72,8 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      cy.wait(1000)
+      //cy.wait(1000)
+      cy.visit("http://localhost/3000")
 
       cy.get("#viewContent").click()
       cy.get(".likeButton").click()
@@ -86,11 +87,12 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      cy.wait(1000)
+      //cy.wait(1000)
+      cy.visit("http://localhost/3000")
       cy.get("#viewContent").click()
       cy.get("#deleteButton").click()
 
-      cy.wait(2000)
+      //cy.wait(2000)
       cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body).to.have.length(0)
@@ -99,11 +101,11 @@ describe("Blog app", function () {
 
     it("check order of blogs", function () {
       cy.createBlog({ ...blog, title: "test title 1", likes: 0 })
-      cy.wait(500)
+      //cy.wait(500)
       cy.createBlog({ ...blog, title: "test title 2", likes: 1 })
-      cy.wait(500)
+      //cy.wait(500)
       cy.createBlog({ ...blog, title: "test title 3", likes: 2 })
-      cy.wait(500)
+      //cy.wait(500)
 
       cy.get("#viewContent").click()
       cy.get("#viewContent").click()
