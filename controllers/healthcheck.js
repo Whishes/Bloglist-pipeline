@@ -8,3 +8,5 @@ healthRouter.get("/health", (request, response) => {
 healthRouter.get("/version", (request, response) => {
   response.send("")
 })
+
+module.exports = healthRouter
