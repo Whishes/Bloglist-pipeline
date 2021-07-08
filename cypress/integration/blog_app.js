@@ -28,7 +28,7 @@ describe("Blog app", function () {
       cy.get("#loginButton").click()
       cy.wait(400) // eslint-disable-line
 
-      cy.contains("Matti Luukkainen logged in")
+      cy.get(".successful").contains("Matti Luukkainen logged in")
     })
 
     it("fails with wrong credentials", function () {

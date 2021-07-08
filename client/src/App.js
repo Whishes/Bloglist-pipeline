@@ -48,7 +48,7 @@ const App = () => {
       });
       setTimeout(() => {
         setMessage(null);
-      }, 5000);
+      }, 10000);
     } catch (exception) {
       setMessage({
         message: exception.response.data.error,
@@ -57,7 +57,7 @@ const App = () => {
       // console.log(message)
       setTimeout(() => {
         setMessage(null);
-      }, 5000);
+      }, 10000);
     }
   };
 
