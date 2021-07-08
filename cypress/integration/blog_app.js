@@ -25,7 +25,7 @@ describe("Blog app", function () {
     it("succeeds with correct credentials", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("salainen")
-      cy.get("#loginButton").click()
+      cy.contains("login").click()
 
       cy.get("html").should("contain", "Matti Luukkainen logged in")
     })
@@ -33,7 +33,7 @@ describe("Blog app", function () {
     it("fails with wrong credentials", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("wrong")
-      cy.get("#loginButton").click()
+      cy.contains("Submit").click()
 
       cy.get("html").should("not.contain", "Matti Luukkainen logged in")
     })
