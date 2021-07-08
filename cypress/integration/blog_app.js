@@ -26,6 +26,7 @@ describe("Blog app", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("salainen")
       cy.get("#loginButton").click()
+      cy.wait(400) // eslint-disable-line
 
       cy.contains("Matti Luukkainen logged in")
     })
@@ -34,6 +35,7 @@ describe("Blog app", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("wrong")
       cy.get("#loginButton").click()
+      cy.wait(400) // eslint-disable-line
 
       cy.get(".unsuccessful")
         .should("contain", "invalid username or password")

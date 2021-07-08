@@ -13,7 +13,7 @@
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint .",
     "start:test": "cross-env NODE_ENV=test npm start",
-    "test:e2e": "cypress run",
+    "test:e2e": "cypress open",
     "start:prod": "cross-env NODE_ENV=production npm start",
     "start:frontend": "cd client && npm start",
     "build:frontend": "cd client && npm run build",
