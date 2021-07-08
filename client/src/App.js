@@ -163,11 +163,11 @@ const App = () => {
 
   return (
     <div>
-      <h2>Blogs</h2>
+      <h2 id="mainHeading">Blogs</h2>
       <Notification message={message} />
       <p>{user.name} logged in</p>
 
-      <button type="submit" onClick={handleLogOut}>
+      <button id="logOutButton" type="submit" onClick={handleLogOut}>
         Log Out
       </button>
 

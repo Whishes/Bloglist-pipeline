@@ -14,7 +14,7 @@ describe("Blog app", function () {
     }
 
     cy.request("POST", "http://localhost:3003/api/users/", user)
-    cy.visit("http://localhost:3000")
+    cy.visit("http://localhost:3003")
   })
 
   it("Login form is shown", function () {
@@ -56,7 +56,8 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      //cy.wait(1000)
+      cy.wait(1000) // eslint-disable-line
+
       cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body[0]).to.have.property("title", "Test Blog")
@@ -72,8 +73,7 @@ describe("Blog app", function () {
       cy.get(".url").type(blog.url)
       cy.get("#submitButton").click()
 
-      //cy.wait(1000)
-      cy.visit("http://localhost/3000")
+      cy.wait(1000) // eslint-disable-line
 
       cy.get("#viewContent").click()
       cy.get(".likeButton").click()
@@ -88,11 +88,12 @@ describe("Blog app", function () {
       cy.get("#submitButton").click()
 
       //cy.wait(1000)
-      cy.visit("http://localhost/3000")
+      //cy.visit("http://localhost/3003")
       cy.get("#viewContent").click()
       cy.get("#deleteButton").click()
 
-      //cy.wait(2000)
+      cy.wait(1000) // eslint-disable-line
+
       cy.request("GET", "http://localhost:3003/api/blogs/").as("blogs")
       cy.get("@blogs").should((response) => {
         expect(response.body).to.have.length(0)

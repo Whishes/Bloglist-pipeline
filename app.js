@@ -44,6 +44,7 @@ app.use("/", healthRouter)
 if (process.env.NODE_ENV === "test") {
   const testingRouter = require("./controllers/testing")
   app.use("/api/testing", testingRouter)
+  console.log("Is Running")
 }
 
 app.use(middleware.unknownEndpoint)

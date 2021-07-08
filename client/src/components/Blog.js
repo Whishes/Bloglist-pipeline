@@ -1,22 +1,22 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 const Blog = ({ blog, updateBlog, removeBlog }) => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => {
-    setVisible(!visible)
-  }
+    setVisible(!visible);
+  };
 
   const addLike = () => {
     updateBlog({
       ...blog,
       likes: blog.likes + 1,
-    })
-  }
+    });
+  };
 
   const handleRemove = () => {
-    if (window.confirm(`Remove ${blog.title}?`)) removeBlog(blog)
-  }
+    if (window.confirm(`Remove ${blog.title}?`)) removeBlog(blog);
+  };
 
   const blogStyle = {
     paddingTop: 10,
@@ -24,7 +24,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
     border: "solid",
     borderWidth: 1,
     marginBottom: 5,
-  }
+  };
 
   if (!visible) {
     return (
@@ -37,7 +37,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
           </button>
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -61,7 +61,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
         Delete
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
