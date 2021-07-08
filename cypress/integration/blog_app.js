@@ -27,15 +27,15 @@ describe("Blog app", function () {
       cy.get("#password").type("salainen")
       cy.contains("login").click()
 
-      cy.get("html").should("contain", "Matti Luukkainen logged in")
+      cy.get("#loginButton").should("contain", "login")
     })
 
     it("fails with wrong credentials", function () {
       cy.get("#username").type("mluukkai")
       cy.get("#password").type("wrong")
-      cy.contains("Submit").click()
+      cy.contains("login").click()
 
-      cy.get("html").should("not.contain", "Matti Luukkainen logged in")
+      cy.get("#loginButton").should("contain", "login")
     })
   })
 
